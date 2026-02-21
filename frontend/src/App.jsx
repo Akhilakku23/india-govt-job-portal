@@ -1,36 +1,95 @@
 import React from "react";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Navbar
 import Navbar from "./components/Navbar";
 
+// Pages
 import Home from "./pages/Home";
 import Portals from "./pages/Portals";
+import PortalDetails from "./pages/PortalDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Bookmarks from "./pages/Bookmarks";
 
-function App(){
+// Admin Pages
+import Dashboard from "./pages/admin/Dashboard";
+import ManagePortals from "./pages/admin/ManagePortals";
+import ManageNotifications from "./pages/admin/ManageNotifications";
 
-return(
+// Route Protection
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 
-<BrowserRouter>
+function App() {
 
-<Navbar/>
+    return (
 
-<Routes>
+        <BrowserRouter>
 
-<Route path="/" element={<Home/>}/>
+            <Navbar />
 
-<Route path="/portals" element={<Portals/>}/>
+            <Routes>
 
-<Route path="/login" element={<Login/>}/>
+                {/* Public Routes */}
 
-<Route path="/register" element={<Register/>}/>
+                <Route path="/" element={<Home />} />
 
-</Routes>
+                <Route path="/portals" element={<Portals />} />
 
-</BrowserRouter>
+                <Route path="/portal/:id"
+                    element={<PortalDetails />}
+                />
 
-);
+                <Route path="/login"
+                    element={<Login />}
+                />
+
+                <Route path="/register"
+                    element={<Register />}
+                />
+
+                {/* User Protected */}
+
+                <Route path="/bookmarks"
+                    element={
+                        <ProtectedRoute>
+                            <Bookmarks />
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* Admin Protected */}
+
+                <Route path="/admin"
+                    element={
+                        <AdminRoute>
+                            <Dashboard />
+                        </AdminRoute>
+                    }
+                />
+
+                <Route path="/admin/manage-portals"
+                    element={
+                        <AdminRoute>
+                            <ManagePortals />
+                        </AdminRoute>
+                    }
+                />
+
+                <Route path="/admin/manage-notifications"
+                    element={
+                        <AdminRoute>
+                            <ManageNotifications />
+                        </AdminRoute>
+                    }
+                />
+
+            </Routes>
+
+        </BrowserRouter>
+
+    );
 
 }
 
