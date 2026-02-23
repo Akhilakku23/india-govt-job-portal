@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
+
+
+
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
+
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
@@ -12,7 +16,10 @@ export default function Navbar() {
       </Link>
 
       <div className="ms-auto">
-        <Link className="btn btn-outline-light me-2" to="/portals">
+        <Link
+          className="btn btn-outline-light me-2"
+          to="/portals"
+        >
           Portals
         </Link>
 

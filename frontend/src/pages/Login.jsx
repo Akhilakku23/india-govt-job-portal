@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import API from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -34,9 +35,14 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="btn btn-primary w-100">
-          Login
-        </button>
+        <button className="btn btn-primary w-100">Login</button>
+
+        <p className="text-center mt-3">
+          You don't have an account?{" "}
+          <Link to="/register" className="btn btn-outline-primary btn-sm">
+            Register Here
+          </Link>
+        </p>
       </form>
     </div>
   );
