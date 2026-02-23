@@ -1,118 +1,73 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import PortalCard from "../components/PortalCard";
-
-// export default function PortalList() {
-//   const [portals, setPortals] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
-
-//   useEffect(() => {
-//     axios
-//       .get("http://localhost:5000/api/portals")
-//       .then((res) => {
-//         console.log("API Response:", res.data); // check console
-//         setPortals(res.data);
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//         setError("Failed to load portals");
-//         setLoading(false);
-//       });
-//   }, []);
-
-//   if (loading) return <h3 className="text-center mt-5">Loading...</h3>;
-//   if (error) return <h3 className="text-center mt-5">{error}</h3>;
-
-//   return (
-//     <div className="container mt-4">
-//       <h2 className="mb-4">Government Job Portals</h2>
-
-//       <div className="row">
-//         {portals.length > 0 ? (
-//           portals.map((portal) => (
-//             <div className="col-md-4 mb-3" key={portal._id}>
-//               <PortalCard portal={portal} />
-//             </div>
-//           ))
-//         ) : (
-//           <h5>No portals found</h5>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState, useContext } from "react";
+import API from "../services/api";
 import PortalCard from "../components/PortalCard";
+import { AuthContext } from "../context/AuthContext";
 
 export default function PortalList() {
   const [portals, setPortals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/portals")
-      .then((res) => {
-        setPortals(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to load portals");
-        setLoading(false);
-      });
+    fetchPortals();
   }, []);
 
-  // ⭐ Bookmark Function
- const handleBookmark = async (portalId) => {
-  try {
-    const token = localStorage.getItem("token");
+  const fetchPortals = async () => {
+    const res = await API.get("/portals");
+    setPortals(res.data);
+  };
 
-    if (!token) {
-      alert("Please login first");
-      return;
-    }
+  const handleBookmark = async (portalId) => {
+    await API.post("/bookmarks", { portalId });
+    alert("Bookmarked!");
+  };
 
-    await axios.post(
-      "http://localhost:5000/api/bookmarks",
-      { portalId },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    alert("Bookmarked Successfully!");
-  } catch (error) {
-    console.error(error);
-    alert("Bookmark failed");
-  }
-};
-
-  if (loading) return <h3 className="text-center mt-5">Loading...</h3>;
-  if (error) return <h3 className="text-center mt-5">{error}</h3>;
+  const filtered = portals.filter(
+    (p) =>
+      p.name.toLowerCase().includes(search.toLowerCase()) &&
+      (category ? p.category === category : true)
+  );
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4 text-center">Government Job Portals</h2>
+      <h2>Job Portals</h2>
+
+      <div className="row mb-3">
+        <div className="col-md-6">
+          <input
+            type="text"
+            placeholder="Search portal..."
+            className="form-control"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        <div className="col-md-4">
+          <select
+            className="form-select"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            <option>PSC</option>
+            <option>UPSC</option>
+            <option>SSC</option>
+            <option>Railway</option>
+            <option>Banking</option>
+            <option>Defence</option>
+          </select>
+        </div>
+      </div>
 
       <div className="row">
-        {portals.length > 0 ? (
-          portals.map((portal) => (
-            <div className="col-md-4 mb-3" key={portal._id}>
-              <PortalCard
-                portal={portal}
-                onBookmark={handleBookmark}
-              />
-            </div>
-          ))
-        ) : (
-          <h5 className="text-center">No portals found</h5>
-        )}
+        {filtered.map((portal) => (
+          <div className="col-md-4 mb-3" key={portal._id}>
+            <PortalCard
+              portal={portal}
+              onBookmark={user ? handleBookmark : null}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
