@@ -14,6 +14,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/portals", require("./routes/portalRoutes"));
 app.use("/api/bookmarks", require("./routes/bookmarkRoutes"));
 app.use("/api/notifications", require("./routes/notificationRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 // DB connect
 mongoose.connect(process.env.MONGO_URI)

@@ -88,6 +88,7 @@ import Terms from "./pages/Terms";
 // import Notifications from "./pages/Notifications";
 import Category from "./pages/Category";
 import Footer from "./components/Footer";
+import AdminUser from "./pages/AdminUser";
 function App() {
   return (
     <BrowserRouter>
@@ -101,7 +102,7 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/portals" element={<PortalList />} />
-
+        <Route path="/admin/dashboard" element={<AdminUser />} />
         {/* Protected */}
         <Route
           path="/bookmarks"

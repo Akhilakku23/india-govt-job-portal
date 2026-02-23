@@ -23,6 +23,15 @@ export default function AdminDashboard() {
             </Link>
           </div>
         </div>
+
+        <div className="col-md-6">
+          <div className="card shadow p-4 text-center">
+            <h4>Manage Users</h4>
+            <Link to="/admin/dashboard" className="btn btn-info mt-3">
+              Go to Users and Bookmarks
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
