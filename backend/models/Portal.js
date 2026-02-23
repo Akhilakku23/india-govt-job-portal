@@ -8,7 +8,9 @@ const portalSchema = new mongoose.Schema({
 
     category: String,
 
-    description: String
+    description: String,
+
+     createdAt: { type: Date, default: Date.now }
 
 }, {timestamps:true});
 

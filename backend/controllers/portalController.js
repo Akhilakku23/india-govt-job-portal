@@ -1,43 +1,36 @@
 const Portal = require("../models/Portal");
 
-exports.getPortals = async(req,res)=>{
-
-    const portals = await Portal.find();
-
-    res.json(portals);
-
+// Get all portals
+exports.getPortals = async (req, res) => {
+  const portals = await Portal.find();
+  res.json(portals);
 };
 
-exports.getPortal = async(req,res)=>{
-
-    const portal = await Portal.findById(req.params.id);
-
-    res.json(portal);
-
+// Get single portal
+exports.getPortalById = async (req, res) => {
+  const portal = await Portal.findById(req.params.id);
+  if (!portal) return res.status(404).json({ message: "Portal not found" });
+  res.json(portal);
 };
 
-exports.createPortal = async(req,res)=>{
-
-    const portal = new Portal(req.body);
-
-    await portal.save();
-
-    res.json("Portal created");
-
+// Create portal (Admin)
+exports.createPortal = async (req, res) => {
+  const portal = await Portal.create(req.body);
+  res.json(portal);
 };
 
-exports.updatePortal = async(req,res)=>{
-
-    await Portal.findByIdAndUpdate(req.params.id, req.body);
-
-    res.json("Portal updated");
-
+// Update portal (Admin)
+exports.updatePortal = async (req, res) => {
+  const portal = await Portal.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+  res.json(portal);
 };
 
-exports.deletePortal = async(req,res)=>{
-
-    await Portal.findByIdAndDelete(req.params.id);
-
-    res.json("Portal deleted");
-
+// Delete portal (Admin)
+exports.deletePortal = async (req, res) => {
+  await Portal.findByIdAndDelete(req.params.id);
+  res.json({ message: "Portal deleted" });
 };

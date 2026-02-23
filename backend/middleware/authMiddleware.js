@@ -1,25 +1,20 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = function(req,res,next){ // This is a middleware function that will be used to protect routes that require authentication
-    // Get token from header.this is the token that we will send from the frontend when making a request to a protected route. It should be in the format "Bearer <token>"
+exports.protect = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Not authorized" });
 
-    const token = req.headers.authorization;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch {
+    res.status(401).json({ message: "Invalid token" });
+  }
+};
 
-    if(!token)
-        return res.status(401).json("Access denied");
-
-    try{
-
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
-
-        req.user = verified;
-
-        next();
-
-    }catch(err){
-
-        res.status(400).json("Invalid Token");
-
-    }
-
-}
+exports.adminOnly = (req, res, next) => {
+  if (req.user.role !== "admin")
+    return res.status(403).json({ message: "Admin only" });
+  next();
+};

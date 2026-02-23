@@ -1,31 +1,28 @@
 const Bookmark = require("../models/Bookmark");
 
-exports.addBookmark = async(req,res)=>{
+// Add bookmark
+exports.addBookmark = async (req, res) => {
+  const { portalId } = req.body;
 
-    const bookmark = new Bookmark(req.body);
+  const bookmark = await Bookmark.create({
+    userId: req.user.id,
+    portalId
+  });
 
-    await bookmark.save();
-
-    res.json("Bookmarked");
-
+  res.json(bookmark);
 };
 
-exports.getBookmarks = async(req,res)=>{
+// Get user bookmarks
+exports.getUserBookmarks = async (req, res) => {
+  const bookmarks = await Bookmark.find({
+    userId: req.params.userId
+  }).populate("portalId");
 
-    const bookmarks = await Bookmark.find({
-
-        userId: req.params.userId
-
-    }).populate("portalId");
-
-    res.json(bookmarks);
-
+  res.json(bookmarks);
 };
 
-exports.deleteBookmark = async(req,res)=>{
-
-    await Bookmark.findByIdAndDelete(req.params.id);
-
-    res.json("Bookmark deleted");
-
+// Delete bookmark
+exports.deleteBookmark = async (req, res) => {
+  await Bookmark.findByIdAndDelete(req.params.id);
+  res.json({ message: "Bookmark removed" });
 };

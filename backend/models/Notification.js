@@ -6,7 +6,9 @@ const notificationSchema = new mongoose.Schema({
 
     description: String,
 
-    link: String
+    link: String,
+
+      createdAt: { type: Date, default: Date.now }
 
 }, {timestamps:true});
 

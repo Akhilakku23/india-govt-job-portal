@@ -1,14 +1,14 @@
 const router = require("express").Router();
+const {
+  getNotifications,
+  createNotification,
+  deleteNotification
+} = require("../controllers/notificationController");
 
-const controller = require("../controllers/notificationController");
+const { protect, adminOnly } = require("../middleware/authMiddleware");
 
-const auth = require("../middleware/authMiddleware");
-const admin = require("../middleware/adminMiddleware");
-
-router.get("/", controller.getNotifications);
-
-router.post("/", auth, admin, controller.createNotification);
-
-router.delete("/:id", auth, admin, controller.deleteNotification);
+router.get("/", getNotifications);
+router.post("/", protect, adminOnly, createNotification);
+router.delete("/:id", protect, adminOnly, deleteNotification);
 
 module.exports = router;

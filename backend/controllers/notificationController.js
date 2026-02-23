@@ -1,27 +1,19 @@
 const Notification = require("../models/Notification");
 
-exports.getNotifications = async(req,res)=>{
-
-    const data = await Notification.find();
-
-    res.json(data);
-
+// Get all notifications
+exports.getNotifications = async (req, res) => {
+  const notifications = await Notification.find().sort({ createdAt: -1 });
+  res.json(notifications);
 };
 
-exports.createNotification = async(req,res)=>{
-
-    const data = new Notification(req.body);
-
-    await data.save();
-
-    res.json("Notification added");
-
+// Create notification (Admin)
+exports.createNotification = async (req, res) => {
+  const notification = await Notification.create(req.body);
+  res.json(notification);
 };
 
-exports.deleteNotification = async(req,res)=>{
-
-    await Notification.findByIdAndDelete(req.params.id);
-
-    res.json("Notification deleted");
-
+// Delete notification (Admin)
+exports.deleteNotification = async (req, res) => {
+  await Notification.findByIdAndDelete(req.params.id);
+  res.json({ message: "Notification deleted" });
 };
