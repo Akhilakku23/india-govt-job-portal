@@ -8,7 +8,7 @@ const {
 const { protect, adminOnly } = require("../middleware/authMiddleware");
 
 router.get("/", protect, adminOnly, getContacts);
-router.post("/",adminOnly, createContact);
+router.post("/", createContact);
 router.delete("/:id", protect, adminOnly, deleteContact);
 
 module.exports = router;
