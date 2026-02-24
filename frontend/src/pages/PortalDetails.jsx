@@ -1,38 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import API from "../services/api";
-
-// export default function PortalDetails() {
-//   const { id } = useParams();
-//   const [portal, setPortal] = useState(null);
-
-//   useEffect(() => {
-//     API.get(`/portals/${id}`).then(res => setPortal(res.data));
-//   }, [id]);
-
-//   if (!portal) return <p>Loading...</p>;
-
-//   return (
-//     <div className="container mt-4">
-//       <h2>{portal.name}</h2>
-//       <p>{portal.description}</p>
-//       <span className="badge bg-info">{portal.category}</span>
-//       <br /><br />
-//       <a
-//         href={portal.link}
-//         target="_blank"
-//         rel="noopener noreferrer"
-//         className="btn btn-success"
-//       >
-//         Visit Official Website
-//       </a>
-
-    
-      
-//     </div>
-//   );
-// }
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -44,69 +9,96 @@ function PortalDetails() {
   const [portal, setPortal] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API}/${id}`)
-      .then(res => setPortal(res.data))
-      .catch(err => console.log(err));
+    axios
+      .get(`${API}/${id}`)
+      .then((res) => setPortal(res.data))
+      .catch((err) => console.log(err));
   }, [id]);
 
   if (!portal) {
     return (
-      <div className="text-center mt-5">
+      <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="spinner-border text-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="container mt-5">
-      <div className="card shadow-lg p-5">
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-9">
 
-        <h2 className="fw-bold">{portal.name}</h2>
-        <p className="text-muted">{portal.description}</p>
+          <div className="card border-0 shadow-lg rounded-4 p-4 p-md-5">
 
-        <span className="badge bg-info mb-3">
-          {portal.category}
-        </span>
+            {/* Title */}
+            <div className="text-center mb-4">
+              <h2 className="fw-bold">{portal.name}</h2>
+              <span className="badge bg-secondary px-3 py-2 rounded-pill mt-2">
+                {portal.category}
+              </span>
+            </div>
 
-        <hr />
+            <hr />
+              <p className="text-muted">{portal.description}</p>
+            {/* Portal Description */}
+            <p> {portal.name} is an official government recruitment portal. Candidates can apply for latest notifications, download hall tickets, check results and get official updates directly from this site. </p>
+          
 
-        {/* About Section */}
-        <h5 className="fw-bold mt-3">About This Portal</h5>
-        <p>
-          {portal.name} is an official government recruitment portal.
-          Candidates can apply for latest notifications, download hall tickets,
-          check results and get official updates directly from this site.
-        </p>
+            {/* Job Role Section */}
+            <div className="mt-4">
+              <h5 className="fw-semibold">Typical Job Roles</h5>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">Clerk / Assistant</li>
+                <li className="list-group-item">Officer / Inspector</li>
+                <li className="list-group-item">Engineer / Technical Staff</li>
+                <li className="list-group-item">Administrative Positions</li>
+              </ul>
+            </div>
 
-        {/* Features Section */}
-        <h5 className="fw-bold mt-4">Key Features</h5>
-        <ul>
-          <li>Latest Government Job Notifications</li>
-          <li>Online Application Submission</li>
-          <li>Admit Card & Result Download</li>
-          <li>Official Announcements</li>
-        </ul>
+            {/* Qualification Section */}
+            <div className="mt-4">
+              <h5 className="fw-semibold">Minimum Qualifications</h5>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">10th / 12th Pass</li>
+                <li className="list-group-item">Diploma Holders</li>
+                <li className="list-group-item">Graduate Degree</li>
+                <li className="list-group-item">Post Graduate Degree (for higher posts)</li>
+              </ul>
+            </div>
 
-        {/* Eligibility Section */}
-        <h5 className="fw-bold mt-4">Who Can Apply?</h5>
-        <p>
-          Candidates who meet the eligibility criteria mentioned in the
-          official notification can apply through this portal.
-          Please read the notification carefully before applying.
-        </p>
+            {/* Selection Process */}
+            <div className="mt-4">
+              <h5 className="fw-semibold">Selection Process</h5>
+              <p className="text-secondary">
+                The selection process usually includes written examinations,
+                skill tests, physical tests (if applicable), and interviews.
+                The exact procedure depends on the official notification.
+              </p>
+            </div>
 
-        {/* Official Link Button */}
-        <div className="mt-4">
-          <a
-            href={portal.link}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-success"
-          >
-            Visit Official Website
-          </a>
+            {/* Important Note */}
+            <div className="alert alert-warning mt-4">
+              <strong>Disclaimer:</strong> We are not affiliated with any
+              government organization. Job roles, qualifications, and
+              selection processes may vary. Please visit the official website
+              for accurate and updated information.
+            </div>
+
+            {/* Official Link */}
+            <div className="text-center mt-4">
+              <a
+                href={portal.link}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary px-4 py-2 rounded-pill"
+              >
+                Visit Official Website
+              </a>
+            </div>
+
+          </div>
+
         </div>
-
       </div>
     </div>
   );
