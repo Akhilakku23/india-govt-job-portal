@@ -103,6 +103,8 @@ function App() {
 
         <Route path="/portals" element={<PortalList />} />
         <Route path="/admin/dashboard" element={<AdminUser />} />
+       
+        
         {/* Protected */}
         <Route
           path="/bookmarks"
@@ -140,6 +142,16 @@ function App() {
             </AdminRoute>
           }
         />
+
+         <Route
+          path="/admin/contacts"
+          element={
+            <AdminRoute>
+              <ManageContacts />
+            </AdminRoute>
+          }
+        />
+
 
         {/* Footer Pages */}
         <Route path="/about" element={<About />} />
