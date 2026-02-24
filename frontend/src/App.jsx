@@ -89,6 +89,7 @@ import Terms from "./pages/Terms";
 import Category from "./pages/Category";
 import Footer from "./components/Footer";
 import AdminUser from "./pages/AdminUser";
+import ManageContacts from "./pages/ManageContacts";
 function App() {
   return (
     <BrowserRouter>

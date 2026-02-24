@@ -33,45 +33,45 @@ export default function ManageContacts() {
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           className="form-control mb-2"
-          placeholder="Title"
-          value={form.title || ""}
+          placeholder="Name"
+          value={form.name || ""}
           onChange={(e) =>
-            setForm({ ...form, title: e.target.value })
+            setForm({ ...form, name: e.target.value })
           }
         />
 
         <textarea
           className="form-control mb-2"
-          placeholder="Description"
-          value={form.description || ""}
+          placeholder="Email"
+          value={form.email || ""}
           onChange={(e) =>
-            setForm({ ...form, description: e.target.value })
+            setForm({ ...form, email: e.target.value })
           }
         />
 
         <input
           className="form-control mb-2"
-          placeholder="Link"
-          value={form.link || ""}
+          placeholder="Message"
+          value={form.message || ""}
           onChange={(e) =>
-            setForm({ ...form, link: e.target.value })
+            setForm({ ...form, message: e.target.value })
           }
         />
 
         <button className="btn btn-primary">
-          Add Notification
+          Add Contact
         </button>
       </form>
 
-      {notifications.map((note) => (
-        <div key={note._id} className="card mb-2 p-3">
-          <h5>{note.name}</h5>
-          <p>{note.email}</p>
-          <p>{note.message}</p>
+      {contacts.map((contact) => (
+        <div key={contact._id} className="card mb-2 p-3">
+          <h5>{contact.name}</h5>
+          <p>{contact.email}</p>
+          <p>{contact.message}</p>
 
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(note._id)}
+            onClick={() => handleDelete(contact._id)}
           >
             Delete
           </button>
