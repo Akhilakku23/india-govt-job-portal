@@ -38,15 +38,40 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 */}
+          {/* Column 4 - Correct Categories */}
           <div className="col-md-3 mb-4">
             <h6 className="footer-heading">Categories</h6>
             <ul className="list-unstyled">
-              <li><Link to="/category/central" className="footer-link">Central</Link></li>
-              <li><Link to="/category/state" className="footer-link">State</Link></li>
-              <li><Link to="/category/railway" className="footer-link">Railway</Link></li>
-              <li><Link to="/category/banking" className="footer-link">Banking</Link></li>
-              <li><Link to="/category/defence" className="footer-link">Defence</Link></li>
+              <li>
+                <Link to="/portals?category=PSC" className="footer-link">
+                  PSC
+                </Link>
+              </li>
+              <li>
+                <Link to="/portals?category=UPSC" className="footer-link">
+                  UPSC
+                </Link>
+              </li>
+              <li>
+                <Link to="/portals?category=SSC" className="footer-link">
+                  SSC
+                </Link>
+              </li>
+              <li>
+                <Link to="/portals?category=Railway" className="footer-link">
+                  Railway
+                </Link>
+              </li>
+              <li>
+                <Link to="/portals?category=Banking" className="footer-link">
+                  Banking
+                </Link>
+              </li>
+              <li>
+                <Link to="/portals?category=Defence" className="footer-link">
+                  Defence
+                </Link>
+              </li>
             </ul>
           </div>
 

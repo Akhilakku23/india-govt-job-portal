@@ -78,7 +78,8 @@ export default function Navbar() {
         )}
 
         {user?.role === "admin" && (
-          <Link className="btn btn-warning fw-semibold me-3 px-3 rounded-pill">
+          <Link className="btn btn-warning fw-semibold me-3 px-3 rounded-pill"
+          to="/admin">
             Admin
           </Link>
         )}
