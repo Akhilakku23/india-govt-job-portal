@@ -1,134 +1,103 @@
-// import { useEffect, useState } from "react";
-// import API from "../services/api";
-
-// export default function Home() {
-//   const [notifications, setNotifications] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     fetchNotifications();
-//   }, []);
-
-//   const fetchNotifications = async () => {
-//     try {
-//       const res = await API.get("/notifications");
-//       setNotifications(res.data);
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   if (loading) return <div className="container mt-4">Loading...</div>;
-
-//   return (
-//     <div className="container mt-4">
-//       <h2 className="mb-4">Latest Job Notifications</h2>
-
-//       {notifications.length === 0 && <p>No notifications available.</p>}
-
-//       {notifications.map((note) => (
-//         <div key={note._id} className="card mb-3 shadow-sm p-3">
-//           <h5>{note.title}</h5>
-//           <p>{note.description}</p>
-//           <a
-//             href={note.link}
-//             target="_blank"
-//             rel="noopener noreferrer"
-//             className="btn btn-outline-primary btn-sm"
-//           >
-//             View Details
-//           </a>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  const images = [
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+    "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d",
+    "https://images.unsplash.com/photo-1557683316-973673baf926",
+  ];
+
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) =>
+        prev === images.length - 1 ? 0 : prev + 1
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {/* 🔵 HERO SECTION */}
       <div
-        className="text-white text-center d-flex align-items-center"
+        className="hero-slider d-flex align-items-center text-white"
         style={{
-          height: "90vh",
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1589308078059-be1415eab4c3')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
+          backgroundImage: `url(${images[currentImage]})`
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            background: "rgba(0,0,0,0.6)",
-          }}
-        ></div>
+        <div className="overlay"></div>
 
-        <div className="container position-relative">
+        <div className="container text-center position-relative">
           <h1 className="display-4 fw-bold">
-            🇮🇳 India Government Job Portal
+            Discover Your Next Career Opportunity
           </h1>
+
           <p className="lead mt-3">
-            Find Latest Government Jobs from UPSC, SSC, Railway, Banking &
-            Defence
+            Explore curated public sector and government job portals in one
+            powerful platform.
           </p>
 
-          
-
-          {/* 🔘 BUTTONS */}
           <div className="mt-4">
-            <Link to="/portals" className="btn btn-danger btn-lg me-3">
-              Explore Portals
+            <Link to="/portals" className="btn btn-gradient btn-lg me-3">
+              Browse Jobs
             </Link>
 
             <Link to="/register" className="btn btn-outline-light btn-lg">
-              Register Now
+              Get Started Free
             </Link>
           </div>
         </div>
       </div>
 
       {/* 🔵 FEATURES SECTION */}
-      <div className="container mt-5">
+      <div className="container py-5">
+        <div className="text-center mb-5">
+          <h2 className="fw-bold">Why Choose Our Platform?</h2>
+          <p className="text-muted">
+            A smarter way to track and discover career opportunities.
+          </p>
+        </div>
+
         <div className="row text-center">
-          <h2 className="mb-4">Why Choose Our Portal?</h2>
-
-          <div className="col-md-4">
-            <div className="card shadow p-4">
-              <h5>🔍 Easy Search</h5>
-              <p>Search government job portals quickly and easily.</p>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="card shadow p-4">
-              <h5>⭐ Bookmark</h5>
-              <p>Save your favorite job portals for quick access.
-
+          <div className="col-md-4 mb-4">
+            <div className="feature-card p-4 h-100">
+              <h5>🔍 Smart Search</h5>
+              <p>
+                Quickly filter and explore job portals by category and sector.
               </p>
             </div>
           </div>
 
-          <div className="col-md-4">
-            <div className="card shadow p-4">
-              <h5>🔔 Notifications</h5>
-              <p>Get latest job updates and announcements.</p>
+          <div className="col-md-4 mb-4">
+            <div className="feature-card p-4 h-100">
+              <h5>⭐ Save Jobs</h5>
+              <p>
+                Bookmark and manage your favorite opportunities in one place.
+              </p>
+            </div>
+          </div>
+
+          <div className="col-md-4 mb-4">
+            <div className="feature-card p-4 h-100">
+              <h5>🔔 Real-Time Updates</h5>
+              <p>
+                Stay informed with the latest announcements and openings.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 🔵 CALL TO ACTION */}
-      <div className="bg-dark text-white text-center py-5 mt-5">
-        <h3>Start Your Government Career Today!</h3>
-        <Link to="/register" className="btn btn-warning mt-3">
+      {/* 🔵 CTA SECTION */}
+      <div className="cta-section text-center py-5 text-white">
+        <h3 className="fw-bold">
+          Ready to Take the Next Step in Your Career?
+        </h3>
+        <Link to="/register" className="btn btn-light mt-3 px-4">
           Create Free Account
         </Link>
       </div>
