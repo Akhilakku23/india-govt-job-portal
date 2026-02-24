@@ -169,3 +169,29 @@ body {
 .cta-section {
   background: linear-gradient(135deg, #7299cf, #001d53);
 }
+
+
+/* Page spacing */
+.portal-page {
+  min-height: 80vh;
+}
+
+/* Search Box Card */
+.search-box {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* Modern Input */
+.modern-input {
+  border-radius: 10px;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  transition: 0.3s ease;
+}
+
+.modern-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
+}

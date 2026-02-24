@@ -1,41 +1,55 @@
-import React from "react";
-
-function FAQ() {
+export default function FAQ() {
   return (
-    <div className="container mt-5">
-      <h2 className="fw-bold mb-4">Frequently Asked Questions</h2>
+    <div className="container py-5">
+      <div className="text-center mb-5">
+        <h2 className="fw-bold">Frequently Asked Questions</h2>
+      </div>
 
       <div className="accordion" id="faqAccordion">
-
         <div className="accordion-item">
           <h2 className="accordion-header">
-            <button className="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">
-              How do I apply for jobs?
+            <button
+              className="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#faq1"
+            >
+              Is CareerBridge a government website?
             </button>
           </h2>
-          <div id="q1" className="accordion-collapse collapse show">
+          <div
+            id="faq1"
+            className="accordion-collapse collapse show"
+            data-bs-parent="#faqAccordion"
+          >
             <div className="accordion-body">
-              Click on the portal and visit the official website to apply.
+              No, we are a private platform that aggregates publicly available job information.
             </div>
           </div>
         </div>
 
         <div className="accordion-item">
           <h2 className="accordion-header">
-            <button className="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">
-              Is this an official government website?
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#faq2"
+            >
+              Do you charge any fees?
             </button>
           </h2>
-          <div id="q2" className="accordion-collapse collapse">
+          <div
+            id="faq2"
+            className="accordion-collapse collapse"
+            data-bs-parent="#faqAccordion"
+          >
             <div className="accordion-body">
-              No. This platform only provides links to official government portals.
+              No, browsing job portals is completely free.
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
 }
-
-export default FAQ;
