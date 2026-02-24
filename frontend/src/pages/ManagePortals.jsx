@@ -48,36 +48,35 @@ export default function ManagePortals() {
           className="form-control mb-2"
           placeholder="Name"
           value={form.name || ""}
-          onChange={(e) =>
-            setForm({ ...form, name: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
 
         <input
           className="form-control mb-2"
           placeholder="Link"
           value={form.link || ""}
-          onChange={(e) =>
-            setForm({ ...form, link: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, link: e.target.value })}
         />
 
-        <input
+        <select
           className="form-control mb-2"
-          placeholder="Category"
           value={form.category || ""}
-          onChange={(e) =>
-            setForm({ ...form, category: e.target.value })
-          }
-        />
+          onChange={(e) => setForm({ ...form, category: e.target.value })}
+        >
+          <option value="">Category</option>
+          <option value="PSC">PSC</option>
+          <option value="UPSC">UPSC</option>
+          <option value="SSC">SSC</option>
+          <option value="Railway">Railway</option>
+          <option value="Banking">Banking</option>
+          <option value="Defence">Defence</option>
+        </select>
 
         <textarea
           className="form-control mb-2"
           placeholder="Description"
           value={form.description || ""}
-          onChange={(e) =>
-            setForm({ ...form, description: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
 
         <button className="btn btn-success">

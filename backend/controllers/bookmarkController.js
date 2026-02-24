@@ -2,23 +2,31 @@ const Bookmark = require("../models/Bookmark");
 
 // Add bookmark
 exports.addBookmark = async (req, res) => {
-  const { portalId } = req.body;
+  try {
+    const bookmark = new Bookmark({
+      portal: req.body.portalId,
+      user: req.user.id   // comes from token
+    });
 
-  const bookmark = await Bookmark.create({
-    userId: req.user.id,
-    portalId
-  });
-
-  res.json(bookmark);
+    await bookmark.save();
+    res.status(201).json(bookmark);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
-// Get user bookmarks
 exports.getUserBookmarks = async (req, res) => {
-  const bookmarks = await Bookmark.find({
-    userId: req.params.userId
-  }).populate("portalId");
+  try {
+    const bookmarks = await Bookmark.find({
+      user: req.user.id
+    }).populate("portal");
 
-  res.json(bookmarks);
+    res.json(bookmarks);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
 // Delete bookmark
