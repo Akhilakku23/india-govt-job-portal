@@ -85,7 +85,7 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
-// import Notifications from "./pages/Notifications";
+import Notifications from "./pages/Notifications";
 import Category from "./pages/Category";
 import Footer from "./components/Footer";
 import AdminUser from "./pages/AdminUser";
@@ -158,9 +158,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />
+
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
-        {/* <Route path="/notifications" element={<Notifications />} /> */}
+        <Route path="/notifications" element={<Notifications />} />
         <Route path="/category/:type" element={<Category />} />
         {/* <Footer /> */}
       </Routes>

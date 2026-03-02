@@ -23,6 +23,7 @@ function Footer() {
               <li><Link to="/" className="footer-link">Home</Link></li>
               <li><Link to="/portals" className="footer-link">Browse Jobs</Link></li>
               <li><Link to="/bookmarks" className="footer-link">Saved Jobs</Link></li>
+              <li><Link to="/notifications" className="footer-link">Latest Notifications</Link></li>
             </ul>
           </div>
 
