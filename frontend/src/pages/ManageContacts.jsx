@@ -1,82 +1,87 @@
 import { useEffect, useState } from "react";
-import API from "../services/api";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-export default function ManageContacts() {
-  const [contacts, setContacts] = useState([]);
-  const [form, setForm] = useState({});
+export default function AdminUserDetails() {
+
+  const { id } = useParams();
+  const [user, setUser] = useState(null);
+
+  const fetchUser = async () => {
+    const res = await axios.get(`http://localhost:5000/api/admin/users/${id}`);
+    setUser(res.data);
+  };
 
   useEffect(() => {
-    fetchContacts();
+    fetchUser();
   }, []);
 
-  const fetchContacts = async () => {
-    const res = await API.get("/contacts");
-    setContacts(res.data);
+  const removeBookmark = async (bookmarkId) => {
+    await axios.delete(`http://localhost:5000/api/admin/bookmark/${bookmarkId}`);
+    fetchUser();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await API.post("/contacts", form);
-    setForm({});
-    fetchContacts();
-  };
-
-  const handleDelete = async (id) => {
-    await API.delete(`/contacts/${id}`);
-    fetchContacts();
-  };
+  if (!user) return <p>Loading...</p>;
 
   return (
     <div className="container mt-4">
-      <h2>Manage Contacts</h2>
 
-      <form onSubmit={handleSubmit} className="mb-4">
-        <input
-          className="form-control mb-2"
-          placeholder="Name"
-          value={form.name || ""}
-          onChange={(e) =>
-            setForm({ ...form, name: e.target.value })
-          }
-        />
+      <h2>User Details</h2>
 
-        <textarea
-          className="form-control mb-2"
-          placeholder="Email"
-          value={form.email || ""}
-          onChange={(e) =>
-            setForm({ ...form, email: e.target.value })
-          }
-        />
+      <div className="card shadow p-4">
 
-        <input
-          className="form-control mb-2"
-          placeholder="Message"
-          value={form.message || ""}
-          onChange={(e) =>
-            setForm({ ...form, message: e.target.value })
-          }
-        />
+        <h4>{user.name}</h4>
 
-        <button className="btn btn-primary">
-          Add Contact
-        </button>
-      </form>
+        <p><strong>User ID:</strong> {user._id}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Role:</strong> {user.role}</p>
 
-      {contacts.map((contact) => (
-        <div key={contact._id} className="card mb-2 p-3">
-          <h5>{contact.name}</h5>
-          <p>{contact.email}</p>
-          <p>{contact.message}</p>
+        <p>
+          <strong>Created:</strong>{" "}
+          {new Date(user.createdAt).toLocaleString()}
+        </p>
 
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(contact._id)}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+        <p>
+          <strong>Updated:</strong>{" "}
+          {new Date(user.updatedAt).toLocaleString()}
+        </p>
+
+        <span className="badge bg-primary">
+          Total Bookmarks: {user.bookmarkCount}
+        </span>
+
+      </div>
+
+      <div className="card shadow p-4 mt-4">
+
+        <h5>Bookmarked Portals</h5>
+
+        {user.bookmarks.length === 0 ? (
+          <p>No bookmarks</p>
+        ) : (
+          <ul className="list-group">
+
+            {user.bookmarks.map((bm) => (
+              <li
+                key={bm._id}
+                className="list-group-item d-flex justify-content-between"
+              >
+                {bm.portal?.name}
+
+                <button
+                  className="btn btn-sm btn-danger"
+                  onClick={() => removeBookmark(bm._id)}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+
+          </ul>
+        )}
+
+      </div>
+
     </div>
   );
 }
