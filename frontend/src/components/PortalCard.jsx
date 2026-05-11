@@ -4,6 +4,7 @@ export default function PortalCard({ portal, onBookmark }) {
   return (
     <div className="card shadow-sm h-100">
       <div className="card-body">
+        
         <h5 className="card-title">{portal.name}</h5>
         <p className="card-text">{portal.description}</p>
         <span className="badge bg-primary mb-2">
