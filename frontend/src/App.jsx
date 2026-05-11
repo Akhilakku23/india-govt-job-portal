@@ -67,7 +67,7 @@
 // export default App;
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from  "./components/Navbar";
 import Home from "./pages/Home";
 import PortalList from "./pages/PortalList";
 import PortalDetails from "./pages/PortalDetails";
