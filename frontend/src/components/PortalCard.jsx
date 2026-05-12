@@ -20,7 +20,7 @@ export default function PortalCard({ portal, onBookmark }) {
           </Link>
 
           <a
-            href={portal.link}
+            href={portal.website}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-success btn-sm"

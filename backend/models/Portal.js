@@ -4,7 +4,7 @@ const portalSchema = new mongoose.Schema({
 
     name: String,
 
-    link: String,
+    website: String,
 
     category: String,
 

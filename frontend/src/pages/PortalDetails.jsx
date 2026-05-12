@@ -225,7 +225,7 @@ function PortalDetails() {
             {/* Official Link */}
             <div className="text-center mt-4">
               <a
-                href={portal.link}
+                href={portal.website}
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-primary px-4 py-2 rounded-pill"
